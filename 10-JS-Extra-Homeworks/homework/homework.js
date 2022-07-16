@@ -18,23 +18,23 @@ function numberOfCharacters(string) {
   //La función recibe un string. Recorre el srting y devuelve el caracter con el número de veces que aparece 
   //en formato par clave-valor.
   //Ej: Recibe ---> "adsjfdsfsfjsdjfhacabcsbajda" || Devuelve ---> { a: 5, b: 2, c: 2, d: 4, f: 4, h:1, j: 4, s: 5 } 
-  //Escribe tu código aquí
-  //dkkkooppp
-  var pares={};
-  var str=[];
-  for (i=0; i<string.length; i++){
-    str[i]=string[i];
+  //Escribe tu código aqui
+  //string va a tener tantos elementos, algunos repetidos. 
+  //tengo q asignar a un objeto una propiedad = un elemento del string
+  //luego a esa propiedad ir sumandole la cantidad de veces q aparece el elemento en el string.
+  //hago un bucle for que recorra cada elemento del string.
+  //tengo un objeto vacio de comienzo
+  //si el elemento del string no esta en el objeto como propiedad, se crea la propiedad, si esta, se le suma uno
+  // a esa propiedad.
+  //Object.hasOwnProperty(prop) me devuelve true o false si el object tiene la prop.
+  var objeto= {};
+  for (let i=0; i<string.length; i++){
+    if (objeto.hasOwnProperty(string[i])){
+      objeto[string[i]]= objeto[string[i]]+1;
+    } else {objeto[string[i]]=1;};
   }
-  str.sort();
-  for (i=0; i<str.length;) {
-    if(str[i]===undefined){
-      break;
-    }
-    var a = str.lastIndexOf(str[i])
-    pares[str[i]]= a+1;
-    str.splice(0,(a+1));
-    }
-  return pares;
+  return objeto;
+
 }
 
 
@@ -43,11 +43,10 @@ function capToFront(s) {
   //al principio de la palabra.
   //Ejemplo: soyHENRY -> HENRYsoy
   //Escribe tu código aquí 
-  let upper= s.match(/[A-Z]/g).join('');
-  let lower= s.match(/[a-z]/g).join('');
+  let Mayus = /[A-Z]/g;   //regular expresion que abarca ABCD....Z, con la flag g (global). 
+  let Minus = /[a-z]/g;   //g hara que con match, la regexp se evalue en toda la string, y devuelva todos los valores coincidentes.
 
-  return upper + lower;
-
+  return s.match(Mayus).join('') + s.match(Minus).join('');
 }
 
 function asAmirror(str) {
@@ -56,17 +55,17 @@ function asAmirror(str) {
   //pero con cada una de sus palabras invertidas, como si fuera un espejo.
   //Ej: Recibe ---> "The Henry Challenge is close!" || Devuelve ---> "ehT yrneH egnellahC si !esolc"
   //Escribe tu código aquí
-  //splite con " " para separar los elementos de la cadena
+  //split con " " para separar los elementos de la cadena
   //los doy vuelta
   // join para unirlos con (" ") entre los elementos
-  var arraydepalabras= str.split(' ');
-  var arrayan=[];
+  var ArregloFrase= str.split(' ');
+  var ArregloFraseAlRevez=[];
   var i=0;
-  arraydepalabras.forEach(function(elemento){
-    arrayan[i]= elemento.split('').reverse().join('');
+  ArregloFrase.forEach(function(elemento){
+    ArregloFraseAlRevez[i]= elemento.split('').reverse().join('');
     i=i+1
   })
-  return arrayan.join(' ');
+  return ArregloFraseAlRevez.join(' ');
 } 
 
 
@@ -121,9 +120,7 @@ function buscoInterseccion(arreglo1, arreglo2){
   //Si no tienen elementos en común, retornar un arreglo vacío.
   //Aclaración: los arreglos no necesariamente tienen la misma longitud
   //Escribe tu código aquí  
-  let array= arreglo1.filter(function(elemento){
-    return arreglo2.includes(elemento);
-  })
+  let array= arreglo1.filter(element=> arreglo2.includes(element))
 
   return array;
 
